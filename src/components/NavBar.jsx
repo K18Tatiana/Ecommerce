@@ -15,9 +15,9 @@ const NavBar = () => {
     return (
         <>
             <Navbar bg="primary" variant="dark">
-                <Container>
+                <Container style={ {display: 'flex', flexWrap: 'wrap'} }>
                     <Navbar.Brand as={ Link } to="/" >Ecommerce App</Navbar.Brand>
-                    <Nav className="me-auto">
+                    <Nav className="me-auto" style={ {display: 'flex', flexWrap: 'wrap'} }>
                         <Nav.Link as={ Link } to="/login" >Login</Nav.Link>
                         <Nav.Link as={ Link } to="/purchases" >Purchases</Nav.Link>
                         <Nav.Link onClick={ handleShow }>Purchases (sidebar)</Nav.Link>
