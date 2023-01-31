@@ -22,17 +22,6 @@ const Home = () => {
         .catch( error => console.error(error) )
         .finally( () => dispatch( setIsLoading(false) ) )
     }, [] )
-    
-    /*
-    onMouseEnter={ () => setImg(false) }
-    onMouseLeave={ () => setImg(true) }
-    */
-
-    /*
-    <ProductCard 
-    product={ product }
-    />
-    */
 
     return (
         <div>

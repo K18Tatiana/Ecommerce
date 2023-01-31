@@ -1,12 +1,13 @@
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import axios from "axios"
 import { setIsLoading } from "../store/slices/isLoading.slice"
 import { useDispatch, useSelector } from "react-redux"
-import { Col, Row } from "react-bootstrap"
+import { Col, Row, Button } from "react-bootstrap"
 import { getProductsThunk } from "../store/slices/products.slice"
 import ProductCard from "../components/ProductCard"
 import Carousel from 'react-bootstrap/Carousel'
+import { addToCartThunk } from "../store/slices/cart.slice"
 
 const ProductDetail = () => {
 
@@ -15,6 +16,8 @@ const ProductDetail = () => {
     const dispatch = useDispatch()
     const products = useSelector( state => state.products )
     const [ productsRelated, setProductsRelated ] = useState( [] )
+    const [ quantity, setQuantity ] = useState( 1 )
+    const navigate = useNavigate()
 
     useEffect( () => {
         dispatch( getProductsThunk() )
@@ -32,6 +35,22 @@ const ProductDetail = () => {
             }, 250 )
         } )
     }, [id] )
+
+    const addToCart = () => {
+        const token = localStorage.getItem("token")
+
+        if( token ) {
+            // Sesión iniciada
+            const product = {
+                id: detail.id,
+                quantity
+            }
+            dispatch( addToCartThunk(product) )
+        } else {
+            // No hay inicio de sesión, redirigir al login
+            navigate("/login")
+        }
+    }
 
     return (
         <div className="container">
@@ -67,15 +86,33 @@ const ProductDetail = () => {
                     <Row>
                         <Col>
                         <h6 className="text-muted">Price</h6>
-                        <h5>$ {detail?.price}</h5>
+                        <h5 className="mt-3">$ {detail?.price}</h5>
                         </Col>
                         <Col>
-                        <h5 className="text-muted">Quantity</h5>
+                        <h6 className="text-muted">Quantity</h6>
+                        <Button 
+                        variant="outline-dark"
+                        onClick={ quantity > 1 ? () => setQuantity( quantity - 1 ) : () => setQuantity( 1 ) }
+                        style={ {padding: '5px 15px'} }
+                        >
+                            -
+                        </Button>
+                        <span style={ {padding: '5px 20px 7px 20px', borderTop: '2px solid #343a40', borderBottom: '2px solid #343a40'} }>{quantity}</span>
+                        <Button 
+                        variant="outline-dark" 
+                        onClick={ () => setQuantity( quantity + 1 ) }
+                        style={ {padding: '5px 15px'} }
+                        >
+                            +
+                        </Button>
                         </Col>
                     </Row>
+                    <Button className="mt-3" onClick={ addToCart }>
+                        Add to cart <i className='bx bx-cart'></i>
+                    </Button>
                 </Col>
             </Row>
-            <h3 style={ {marginTop: 30} }>Discover similar items</h3> 
+            <h3 className="mt-5">Discover similar items</h3> 
             <Row xs={1} sm={2} lg={3}>
                 {
                     productsRelated?.map( product => (

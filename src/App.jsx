@@ -8,6 +8,7 @@ import NavBar from './components/NavBar'
 import Container from 'react-bootstrap/Container';
 import Loader from './components/Loader'
 import { useSelector } from 'react-redux'
+import ProtectedRoutes from './components/ProtectedRoutes'
 
 function App() {
 
@@ -23,7 +24,10 @@ function App() {
           <Route path='/' element={ <Home /> } />
           <Route path='/product/:id' element={ <ProductDetail /> } />
           <Route path='/login' element={ <Login /> } />
-          <Route path='/purchases' element={ <Purchases /> } />
+          
+          <Route element={ <ProtectedRoutes /> }>
+            <Route path='/purchases' element={ <Purchases /> } />
+          </Route>
 
         </Routes>
       </Container>
