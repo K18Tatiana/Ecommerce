@@ -186,10 +186,7 @@ img {
   position: fixed;
   width: 90%;
   max-width: 370px; 
-  bottom: 20;
   text-align: center;
-  display: flex;
-  flex-direction: column;
 }
 .filter-price {
   display: flex;

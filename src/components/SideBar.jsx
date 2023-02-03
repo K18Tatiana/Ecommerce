@@ -46,7 +46,7 @@ const SideBar = ( {show, handleClose} ) => {
     }, [ cart ] )
 
     return (
-        <Offcanvas show={show} onHide={handleClose} placement={"end"}>
+        <Offcanvas show={show} onHide={handleClose} placement={"end"} >
             <Offcanvas.Header closeButton>
                 <Offcanvas.Title style={ {borderBottom: '1px solid gray'} }>Shopping Cart <i className='bx bx-cart'></i></Offcanvas.Title>
             </Offcanvas.Header>
