@@ -54,7 +54,7 @@ const ProductDetail = () => {
     }
 
     return (
-        <div className="main-container">
+        <div className="main-container" id="page-top">
             <Row>
                 <Col style={ {display: 'flex', alignItems: 'center', justifyContent: 'center'} } lg={6} md={5}>
                     <Carousel variant="dark" className="carousel" fade>
