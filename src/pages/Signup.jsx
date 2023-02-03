@@ -27,15 +27,12 @@ const Signup = () => {
         axios
         .post( "https://e-commerce-api.academlo.tech/api/v1/users", data )
         .then( resp => {
-            localStorage.setItem( "token", resp.data.data.token )
-            localStorage.setItem( "firstName", resp.data.data.user.firstName )
-            localStorage.setItem( "lastName", resp.data.data.user.lastName )
             setFirstName( '' )
             setLastName( '' )
             setEmail( '' )
             setPassword( '' )
             setPhone( '' )
-            swal("Registration successful!", "Welcome to our e-commerce", "success");
+            swal("Registration successful!", "Please login to continue", "success");
             navigate( "/login" )
         } )
         .catch( error => {
