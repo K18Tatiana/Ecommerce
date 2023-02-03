@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { setIsLoading } from './isLoading.slice';
 import axios from 'axios';
 import getConfig from '../../utils/getConfig';
+import swal from 'sweetalert'
 
 export const cartSlice = createSlice({
     name: 'cart',
@@ -26,8 +27,14 @@ export const addToCartThunk = ( product ) => dispatch => {
     dispatch( setIsLoading(true) )
     axios
     .post( "https://e-commerce-api.academlo.tech/api/v1/cart", product, getConfig() )
-    .then( () => dispatch( getAddToCartThunk() ) )
-    .catch( error => console.error(error) )
+    .then( () => {
+        dispatch( getAddToCartThunk() )
+        swal("Product added successfully!", "You can continue shopping in your shopping cart", "success");
+    } )
+    .catch( error => {
+        console.error(error) 
+        swal("The product is already in the cart!", "Please try to change the quantity or add a new product", "error");
+    } )
     .finally( () => dispatch( setIsLoading(false) ) )
 }
 

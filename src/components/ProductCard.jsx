@@ -17,7 +17,6 @@ const ProductCard = ( {product} ) => {
                 quantity: 1
             }
             dispatch( addToCartThunk(product) )
-            swal("Product added successfully!", "You can continue shopping in your shopping cart", "success");
         } else {
             // No hay inicio de sesión, redirigir al login
             navigate("/login")

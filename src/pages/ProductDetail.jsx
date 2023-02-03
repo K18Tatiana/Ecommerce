@@ -7,7 +7,6 @@ import { Col, Row, Button, Carousel } from "react-bootstrap"
 import { getProductsThunk, filterCategoriesThunk  } from "../store/slices/products.slice"
 import ProductCard from "../components/ProductCard"
 import { addToCartThunk } from "../store/slices/cart.slice"
-import swal from 'sweetalert'
 
 const ProductDetail = () => {
 
@@ -46,7 +45,6 @@ const ProductDetail = () => {
                 quantity
             }
             dispatch( addToCartThunk(product) )
-            swal("Product added successfully!", "You can continue shopping in your shopping cart", "success");
         } else {
             // No hay inicio de sesión, redirigir al login
             navigate("/login")
