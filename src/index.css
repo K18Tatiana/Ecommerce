@@ -175,7 +175,7 @@ img {
   font-size: 14px;
 }
 .main-container {
-  padding: 80px 25px 0 25px;
+  padding: 100px 25px 0 25px;
 }
 .quantity {
   padding: 5px 20px 7px 20px;
@@ -239,7 +239,7 @@ img {
 }
 @media (max-width: 540px) {
   .main-container {
-    padding-top: 90px;
+    padding-top: 130px;
   }
 }
 @media (max-width: 500px) {
@@ -270,6 +270,6 @@ img {
 }
 @media (max-width: 365px) {
   .main-container {
-    padding-top: 115px;
+    padding-top: 155px;
   }
 }
