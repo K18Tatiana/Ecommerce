@@ -26,7 +26,7 @@ const NavBar = () => {
         <>
             <Navbar bg="primary" variant="dark" style={ {position: 'fixed', top: 0, width: '100%', zIndex: 100} } >
                 <Container style={ {display: 'flex', flexWrap: 'wrap', paddingLeft: 35} }>
-                    <Navbar.Brand as={ Link } to="/" >Ecommerce App</Navbar.Brand>
+                    <Navbar.Brand as={ Link } to="/" style={ {whiteSpace: 'initial'} } >Ecommerce App</Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link as={ Link } to="/login" className='option line' >
                             <TriggerRendererProp
