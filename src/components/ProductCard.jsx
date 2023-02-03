@@ -1,44 +1,66 @@
 import { Row, Col, Button, Card } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { addToCartThunk } from "../store/slices/cart.slice"
 
 const ProductCard = ( {product} ) => {
 
-    const [ isImg, setIsImg ] = useState( false )
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const addToCart = (productId) => {
+        const token = localStorage.getItem("token")
+        if( token ) {
+            // Sesión iniciada
+            const product = {
+                id: productId,
+                quantity: 1
+            }
+            dispatch( addToCartThunk(product) )
+            swal("Product added successfully!", "You can continue shopping in your shopping cart", "success");
+        } else {
+            // No hay inicio de sesión, redirigir al login
+            navigate("/login")
+        }
+    }
 
     return (
-        <Col 
-        key={ product.id } 
-        onClick={ () => navigate(`/product/${product.id}`) }
-        >
+        <Col>
             <Card className="product-card">
-                <Card.Img 
-                className="product-img"
-                variant="top"
-                onMouseEnter={ () => setIsImg(true) }
-                src= {product?.productImgs?.[0]}
-                style={ isImg ? {display: 'none'} : {display: 'block'} }
-                />
-                <Card.Img 
-                className="product-img"
-                variant="top"
-                onMouseLeave={ () => setIsImg(false) }
-                src= {product?.productImgs?.[1]}
-                style={ isImg ? {display: 'block'} : {display: 'none'} }
-                />
-                <hr />
+                <div className="img-wrapper">
+                    <Card.Img 
+                    className="product-img"
+                    variant="top"
+                    src= {product?.productImgs?.[1]}
+                    onClick={ () => navigate(`/product/${product.id}`) }
+                    />
+                    <Card.Img 
+                    className="product-img cover-img"
+                    variant="top"
+                    src= {product?.productImgs?.[0]}
+                    onClick={ () => navigate(`/product/${product.id}`) }
+                    />
+                </div>
+                
+                <hr onClick={ () => navigate(`/product/${product.id}`) } />
                 <Card.Body 
                 style={ {display: 'flex', flexDirection: 'column', justifyContent: 'space-around'} }
                 >
-                    <Card.Title className="text-primary">{product?.title}</Card.Title>
+                    <Card.Title 
+                    className="text-primary" 
+                    onClick={ () => navigate(`/product/${product.id}`) }
+                    style={ {cursor: 'pointer'} }
+                    >
+                        {product?.title}
+                    </Card.Title>
                     <Row>
-                        <Col>
+                        <Col onClick={ () => navigate(`/product/${product.id}`) } style={ {cursor: 'pointer'} }>
                             <Card.Subtitle className="mb-2 text-muted">Price</Card.Subtitle>
                             <Card.Text>$ {product?.price}</Card.Text>
                         </Col>
                         <Col>
-                            <Button style={ {fontSize: 20} }>
+                            <Button style={ {fontSize: 20} } onClick={ () => addToCart(product.id) }>
                                 <i className='bx bx-cart'></i>
                             </Button>
                         </Col>

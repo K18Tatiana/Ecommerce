@@ -3,11 +3,11 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 import { setIsLoading } from "../store/slices/isLoading.slice"
 import { useDispatch, useSelector } from "react-redux"
-import { Col, Row, Button } from "react-bootstrap"
-import { getProductsThunk } from "../store/slices/products.slice"
+import { Col, Row, Button, Carousel } from "react-bootstrap"
+import { getProductsThunk, filterCategoriesThunk  } from "../store/slices/products.slice"
 import ProductCard from "../components/ProductCard"
-import Carousel from 'react-bootstrap/Carousel'
 import { addToCartThunk } from "../store/slices/cart.slice"
+import swal from 'sweetalert'
 
 const ProductDetail = () => {
 
@@ -18,7 +18,7 @@ const ProductDetail = () => {
     const [ productsRelated, setProductsRelated ] = useState( [] )
     const [ quantity, setQuantity ] = useState( 1 )
     const navigate = useNavigate()
-
+  
     useEffect( () => {
         dispatch( getProductsThunk() )
         dispatch( setIsLoading(true) )
@@ -46,6 +46,7 @@ const ProductDetail = () => {
                 quantity
             }
             dispatch( addToCartThunk(product) )
+            swal("Product added successfully!", "You can continue shopping in your shopping cart", "success");
         } else {
             // No hay inicio de sesión, redirigir al login
             navigate("/login")
@@ -53,7 +54,7 @@ const ProductDetail = () => {
     }
 
     return (
-        <div className="container">
+        <div className="main-container">
             <Row>
                 <Col style={ {display: 'flex', alignItems: 'center', justifyContent: 'center'} } lg={6} md={5}>
                     <Carousel variant="dark" className="carousel" fade>
@@ -83,28 +84,28 @@ const ProductDetail = () => {
                 <Col style={ {display: 'flex', justifyContent: 'center', flexDirection: 'column'} }>
                     <h2>{detail?.title}</h2>
                     <p style={ {fontSize: 13} }>{detail?.description}</p>
-                    <Row>
+                    <Row className='container-flex'>
                         <Col>
-                        <h6 className="text-muted">Price</h6>
-                        <h5 className="mt-3">$ {detail?.price}</h5>
+                            <h6 className="text-muted">Price</h6>
+                            <h5 className="mt-3">$ {detail?.price}</h5>
                         </Col>
-                        <Col>
-                        <h6 className="text-muted">Quantity</h6>
-                        <Button 
-                        variant="outline-dark"
-                        onClick={ quantity > 1 ? () => setQuantity( quantity - 1 ) : () => setQuantity( 1 ) }
-                        style={ {padding: '5px 15px'} }
-                        >
-                            -
-                        </Button>
-                        <span style={ {padding: '5px 20px 7px 20px', borderTop: '2px solid #343a40', borderBottom: '2px solid #343a40'} }>{quantity}</span>
-                        <Button 
-                        variant="outline-dark" 
-                        onClick={ () => setQuantity( quantity + 1 ) }
-                        style={ {padding: '5px 15px'} }
-                        >
-                            +
-                        </Button>
+                        <Col style={ {minWidth: 134} }>
+                            <h6 className="text-muted">Quantity</h6>
+                            <Button 
+                            variant="outline-dark"
+                            onClick={ quantity > 1 ? () => setQuantity( quantity - 1 ) : () => setQuantity( 1 ) }
+                            style={ {padding: '5px 15px'} }
+                            >
+                                -
+                            </Button>
+                            <span className="quantity">{quantity}</span>
+                            <Button 
+                            variant="outline-dark" 
+                            onClick={ () => setQuantity( quantity + 1 ) }
+                            style={ {padding: '5px 15px'} }
+                            >
+                                +
+                            </Button>
                         </Col>
                     </Row>
                     <Button className="mt-3" onClick={ addToCart }>
@@ -117,6 +118,7 @@ const ProductDetail = () => {
                 {
                     productsRelated?.map( product => (
                         <ProductCard 
+                        key={ product.id }
                         product={ product }
                         />
                     ) )

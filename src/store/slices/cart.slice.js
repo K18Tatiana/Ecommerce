@@ -17,7 +17,7 @@ export const getAddToCartThunk = () => dispatch => {
     dispatch( setIsLoading(true) )
     axios
     .get( "https://e-commerce-api.academlo.tech/api/v1/cart", getConfig() )
-    .then( resp => dispatch( setCart(resp.data.data) ) )
+    .then( resp => dispatch( setCart(resp.data.data.cart.products) ) )
     .catch( error => console.error(error) )
     .finally( () => dispatch( setIsLoading(false) ) )
 }

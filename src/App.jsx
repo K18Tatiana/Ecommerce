@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 import Loader from './components/Loader'
 import { useSelector } from 'react-redux'
 import ProtectedRoutes from './components/ProtectedRoutes'
+import Signup from './pages/Signup'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
           <Route path='/' element={ <Home /> } />
           <Route path='/product/:id' element={ <ProductDetail /> } />
           <Route path='/login' element={ <Login /> } />
+          <Route path='/signup' element={ <Signup /> } />
           
           <Route element={ <ProtectedRoutes /> }>
             <Route path='/purchases' element={ <Purchases /> } />
