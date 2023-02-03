@@ -62,7 +62,7 @@ const SideBar = ( {show, handleClose} ) => {
                             />
                         ) )
                         :
-                        <h2>No hay productos seleccionados</h2>
+                        <h2>No products selected</h2>
                     }
                 </div>
                 <div className="total-cart">
