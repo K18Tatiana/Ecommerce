@@ -43,7 +43,7 @@ const Login = () => {
     }
 
     return (
-        <div style={ {marginTop: 145} }>
+        <div className="main-container">
             {
                 isLogged
                 ?
