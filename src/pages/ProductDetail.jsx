@@ -4,7 +4,7 @@ import axios from "axios"
 import { setIsLoading } from "../store/slices/isLoading.slice"
 import { useDispatch, useSelector } from "react-redux"
 import { Col, Row, Button, Carousel } from "react-bootstrap"
-import { getProductsThunk, filterCategoriesThunk  } from "../store/slices/products.slice"
+import { getProductsThunk } from "../store/slices/products.slice"
 import ProductCard from "../components/ProductCard"
 import { addToCartThunk } from "../store/slices/cart.slice"
 
@@ -22,10 +22,10 @@ const ProductDetail = () => {
         dispatch( getProductsThunk() )
         dispatch( setIsLoading(true) )
         axios
-        .get( `https://e-commerce-api.academlo.tech/api/v1/products/${id}/` )
+        .get( `https://ecommerce-app-ypub.onrender.com/api/v1/products/${id}/` )
         .then( resp => {
-            setDetail(resp.data.data.product)
-            setProductsRelated( products.filter( product => product.category.name === resp.data.data.product.category ) )
+            setDetail(resp.data)
+            setProductsRelated( products?.filter(product => product.categoryId === resp.data.categoryId) )
         } )
         .catch( error => console.error(error) )
         .finally( () => {
@@ -41,7 +41,7 @@ const ProductDetail = () => {
         if( token ) {
             // Sesión iniciada
             const product = {
-                id: detail.id,
+                productId: detail.id,
                 quantity
             }
             dispatch( addToCartThunk(product) )
@@ -59,21 +59,21 @@ const ProductDetail = () => {
                         <Carousel.Item>
                             <img
                             className="d-block w-100 img-carousel"
-                            src={detail?.productImgs?.[0]}
+                            src={detail?.productImgs?.[0]?.url}
                             alt="First slide"
                             />
                         </Carousel.Item>
                         <Carousel.Item>
                             <img
                             className="d-block w-100 img-carousel"
-                            src={detail?.productImgs?.[1]}
+                            src={detail?.productImgs?.[1]?.url}
                             alt="Second slide"
                             />
                         </Carousel.Item>
                         <Carousel.Item>
                             <img
                             className="d-block w-100 img-carousel"
-                            src={detail?.productImgs?.[2]}
+                            src={detail?.productImgs?.[2]?.url}
                             alt="Third slide"
                             />
                         </Carousel.Item>
@@ -85,7 +85,7 @@ const ProductDetail = () => {
                     <Row className='container-flex'>
                         <Col>
                             <h6 className="text-muted">Price</h6>
-                            <h5 className="mt-3">$ {detail?.price}</h5>
+                            <h5 className="mt-3">$ {detail?.price}.00</h5>
                         </Col>
                         <Col style={ {minWidth: 134} }>
                             <h6 className="text-muted">Quantity</h6>

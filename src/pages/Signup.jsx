@@ -21,12 +21,11 @@ const Signup = () => {
             lastName,
             email,
             password,
-            phone,
-            role: "admin"
+            phone
         }
         axios
-        .post( "https://e-commerce-api.academlo.tech/api/v1/users", data )
-        .then( resp => {
+        .post( "https://ecommerce-app-ypub.onrender.com/api/v1/users", data )
+        .then( () => {
             setFirstName( '' )
             setLastName( '' )
             setEmail( '' )

@@ -17,8 +17,8 @@ export const cartSlice = createSlice({
 export const getAddToCartThunk = () => dispatch => {
     dispatch( setIsLoading(true) )
     axios
-    .get( "https://e-commerce-api.academlo.tech/api/v1/cart", getConfig() )
-    .then( resp => dispatch( setCart(resp.data.data.cart.products) ) )
+    .get( "https://ecommerce-app-ypub.onrender.com/api/v1/cart", getConfig() )
+    .then( resp => dispatch( setCart(resp.data) ) )
     .catch( error => console.error(error) )
     .finally( () => dispatch( setIsLoading(false) ) )
 }
@@ -26,7 +26,7 @@ export const getAddToCartThunk = () => dispatch => {
 export const addToCartThunk = ( product ) => dispatch => {
     dispatch( setIsLoading(true) )
     axios
-    .post( "https://e-commerce-api.academlo.tech/api/v1/cart", product, getConfig() )
+    .post( "https://ecommerce-app-ypub.onrender.com/api/v1/cart", product, getConfig() )
     .then( () => {
         dispatch( getAddToCartThunk() )
         swal("Product added successfully!", "You can continue shopping in your shopping cart", "success");

@@ -14,8 +14,8 @@ const Purchases = () => {
     useEffect( () => {
         dispatch( setIsLoading(true) )
         axios
-        .get( "https://e-commerce-api.academlo.tech/api/v1/purchases", getConfig() )
-        .then( resp => setPurchases(resp.data.data.purchases) )
+        .get( "https://ecommerce-app-ypub.onrender.com/api/v1/purchases", getConfig() )
+        .then( resp => setPurchases(resp.data) )
         .catch( error => console.error(error) )
         .finally( () => dispatch( setIsLoading(false) ) )
     }, [] )
@@ -27,31 +27,28 @@ const Purchases = () => {
                 purchases.length > 0
                 ?
                 purchases?.map( purchase => (
-                    purchase?.cart?.products?.map( product => (
-                        <div 
-                        key={product.id} 
-                        className="purchase-product"
-                        onClick={ () => navigate(`/product/${product.id}`) }
-                        >
-                            <span>{product.brand}</span>
-                            <h5>{product.title}</h5>
+                    <div 
+                    key={purchase.id} 
+                    className="purchase-product"
+                    onClick={ () => navigate(`/product/${purchase.product.id}`) }
+                    >
+                        <h5>{purchase.product.title}</h5>
+                        <div>
                             <div>
-                                <div>
-                                    <span>Date</span>
-                                    <h6>{product.productsInCart.createdAt.substr(0, 10)}</h6>
-                                </div>
-                                <div>
-                                    <span>Quantity</span>
-                                    <h6 style={ {border: '1px solid gray', padding: 5, textAlign: 'center', width: 55} }>{product.productsInCart.quantity}</h6>
-                                </div>
-                                <div>
-                                    <span>Total</span>
-                                    <h6>$ {(product.price * product.productsInCart.quantity).toFixed(2)}</h6>
-                                </div>
+                                <span>Date</span>
+                                <h6>{purchase.createdAt.substr(0, 10)}</h6>
                             </div>
-                            <hr />
+                            <div>
+                                <span>Quantity</span>
+                                <h6 style={ {border: '1px solid gray', padding: 5, textAlign: 'center', width: 55} }>{purchase.quantity}</h6>
+                            </div>
+                            <div>
+                                <span>Total</span>
+                                <h6>$ {(purchase.product.price * purchase.quantity).toFixed(2)}</h6>
+                            </div>
                         </div>
-                    ) )
+                        <hr />
+                    </div>
                 ) )
                 :
                 <p>You haven't bought anything yet. <Link to="/" >See Products</Link></p>

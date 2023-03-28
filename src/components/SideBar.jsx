@@ -23,7 +23,7 @@ const SideBar = ( {show, handleClose} ) => {
     const checkoutCart = () => {
         dispatch( setIsLoading(true) )
         axios
-        .post( "https://e-commerce-api.academlo.tech/api/v1/purchases", {
+        .post( "https://ecommerce-app-ypub.onrender.com/api/v1/purchases", {
             "street": "Green St. 1456",
             "colony": "Southwest",
             "zipCode": 12345,
@@ -39,8 +39,8 @@ const SideBar = ( {show, handleClose} ) => {
     }
 
     useEffect( () => {
-        const price = cart?.reduce( (total, product) => {
-            return total + (product.price * product.productsInCart.quantity)
+        const price = cart?.reduce( (total, item) => {
+            return total + (item?.product?.price * item?.quantity)
         }, 0 )
         setTotalPrice(price.toFixed(2))
     }, [ cart ] )
@@ -55,10 +55,10 @@ const SideBar = ( {show, handleClose} ) => {
                     {
                         cart.length !== 0
                         ?
-                        cart?.map( product => (
+                        cart?.map( item => (
                             <ProductSideBar 
-                            key={product.id}
-                            product={product}
+                            key={item.id}
+                            item={item}
                             />
                         ) )
                         :

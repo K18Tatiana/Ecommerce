@@ -16,11 +16,11 @@ const Login = () => {
             password
         }
         axios
-        .post( "https://e-commerce-api.academlo.tech/api/v1/users/login", data )
+        .post( "https://ecommerce-app-ypub.onrender.com/api/v1/users/login", data )
         .then( resp => {
-            localStorage.setItem( "token", resp.data.data.token )
-            localStorage.setItem( "firstName", resp.data.data.user.firstName )
-            localStorage.setItem( "lastName", resp.data.data.user.lastName )
+            localStorage.setItem( "token", resp.data.token )
+            localStorage.setItem( "firstName", resp.data.user.firstName )
+            localStorage.setItem( "lastName", resp.data.user.lastName )
             setEmail( '' )
             setPassword( '' )
             swal("Login successful!", "Welcome to our e-commerce", "success");

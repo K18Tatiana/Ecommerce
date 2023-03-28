@@ -17,8 +17,8 @@ const Home = () => {
         dispatch( getProductsThunk() )
         dispatch( setIsLoading(true) )
         axios
-        .get( "https://e-commerce-api.academlo.tech/api/v1/products/categories" )
-        .then( resp => setCategories(resp.data.data.categories) )
+        .get( "https://ecommerce-app-ypub.onrender.com/api/v1/categories" )
+        .then( resp => setCategories(resp.data) )
         .catch( error => console.error(error) )
         .finally( () => dispatch( setIsLoading(false) ) )
     }, [] )

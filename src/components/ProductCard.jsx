@@ -13,7 +13,7 @@ const ProductCard = ( {product} ) => {
         if( token ) {
             // Sesión iniciada
             const product = {
-                id: productId,
+                productId,
                 quantity: 1
             }
             dispatch( addToCartThunk(product) )
@@ -30,13 +30,13 @@ const ProductCard = ( {product} ) => {
                     <Card.Img 
                     className="product-img"
                     variant="top"
-                    src= {product?.productImgs?.[1]}
+                    src= {product?.productImgs?.[1]?.url}
                     onClick={ () => navigate(`/product/${product.id}`) }
                     />
                     <Card.Img 
                     className="product-img cover-img"
                     variant="top"
-                    src= {product?.productImgs?.[0]}
+                    src= {product?.productImgs?.[0]?.url}
                     onClick={ () => navigate(`/product/${product.id}`) }
                     />
                 </div>
@@ -54,7 +54,7 @@ const ProductCard = ( {product} ) => {
                     <Row>
                         <Col onClick={ () => navigate(`/product/${product.id}`) } style={ {cursor: 'pointer'} }>
                             <Card.Subtitle className="mb-2 text-muted">Price</Card.Subtitle>
-                            <Card.Text>$ {product?.price}</Card.Text>
+                            <Card.Text>$ {product?.price}.00</Card.Text>
                         </Col>
                         <Col>
                             <Button style={ {fontSize: 20} } onClick={ () => addToCart(product.id) }>

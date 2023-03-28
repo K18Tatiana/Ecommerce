@@ -7,21 +7,20 @@ import getConfig from '../utils/getConfig';
 import { getAddToCartThunk } from '../store/slices/cart.slice';
 import { useNavigate } from 'react-router-dom';
 
-const ProductSideBar = ( {product} ) => {
+const ProductSideBar = ( {item} ) => {
 
-    const [ quantity, setQuantity ] = useState( product.productsInCart.quantity )
+    const [ quantity, setQuantity ] = useState( item.quantity )
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const updateCart = ( newQuantity ) => {
         setQuantity( newQuantity )
         const updateProduct = {
-            id: product.id,
-            newQuantity
+            quantity: newQuantity
         }
         dispatch( setIsLoading(true) )
         axios
-        .patch( "https://e-commerce-api.academlo.tech/api/v1/cart", updateProduct, getConfig() )
+        .put( `https://ecommerce-app-ypub.onrender.com/api/v1/cart/${item.id}`, updateProduct, getConfig() )
         .then( () => dispatch( getAddToCartThunk() ) )
         .catch( error => console.error(error) )
     }
@@ -29,16 +28,15 @@ const ProductSideBar = ( {product} ) => {
     const deleteProduct = () => {
         dispatch( setIsLoading(true) )
         axios
-        .delete( `https://e-commerce-api.academlo.tech/api/v1/cart/${product.id}`, getConfig() )
+        .delete( `https://ecommerce-app-ypub.onrender.com/api/v1/cart/${item.id}`, getConfig() )
         .then( () => dispatch( getAddToCartThunk() ) )
         .catch( error => console.error(error) )
     }
 
     return (
         <div style={ {paddingBottom: 20} }>
-            <div onClick={ () => navigate(`/product/${product.id}`) } style={ {cursor: 'pointer'} }>
-                <span>{product.brand}</span>
-                <h5>{product.title}</h5>
+            <div onClick={ () => navigate(`/product/${item.id}`) } style={ {cursor: 'pointer'} }>
+                <h5>{item.product.title}</h5>
             </div>
             <div style={ {display: 'flex', justifyContent: 'space-between'} }>
                 <div>
@@ -52,7 +50,7 @@ const ProductSideBar = ( {product} ) => {
                         <span 
                         style={ {padding: '0 14px 2px 14px', borderTop: '2px solid #919aa1', borderBottom: '2px solid #919aa1'} }
                         >
-                            {product.productsInCart.quantity}
+                            {item.quantity}
                         </span>
                     <Button 
                     variant="outline-secondary" 
@@ -68,7 +66,7 @@ const ProductSideBar = ( {product} ) => {
             </div>
             <div style={ {display: 'flex', justifyContent: 'end'} }>
                 <p>Total:</p>
-                <span className='text-primary' style={ {paddingRight: 10, paddingLeft: 20} }>$ {(product.price * quantity).toFixed(2)}</span>
+                <span className='text-primary' style={ {paddingRight: 10, paddingLeft: 20} }>$ {(item.product.price * quantity).toFixed(2)}</span>
             </div>
         </div>
     )
