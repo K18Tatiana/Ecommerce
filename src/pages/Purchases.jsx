@@ -14,7 +14,7 @@ const Purchases = () => {
     useEffect( () => {
         dispatch( setIsLoading(true) )
         axios
-        .get( "https://ecommerce-app-ypub.onrender.com/api/v1/purchases", getConfig() )
+        .get( "https://ecommerce-app-10yz.onrender.com/api/v1/purchases", getConfig() )
         .then( resp => setPurchases(resp.data) )
         .catch( error => console.error(error) )
         .finally( () => dispatch( setIsLoading(false) ) )

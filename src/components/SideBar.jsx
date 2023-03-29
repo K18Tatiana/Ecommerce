@@ -23,7 +23,7 @@ const SideBar = ( {show, handleClose} ) => {
     const checkoutCart = () => {
         dispatch( setIsLoading(true) )
         axios
-        .post( "https://ecommerce-app-ypub.onrender.com/api/v1/purchases", {
+        .post( "https://ecommerce-app-10yz.onrender.com/api/v1/purchases", {
             "street": "Green St. 1456",
             "colony": "Southwest",
             "zipCode": 12345,

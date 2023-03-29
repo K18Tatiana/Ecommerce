@@ -24,7 +24,7 @@ const Signup = () => {
             phone
         }
         axios
-        .post( "https://ecommerce-app-ypub.onrender.com/api/v1/users", data )
+        .post( "https://ecommerce-app-10yz.onrender.com/api/v1/users", data )
         .then( () => {
             setFirstName( '' )
             setLastName( '' )

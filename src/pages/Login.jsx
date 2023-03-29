@@ -16,7 +16,7 @@ const Login = () => {
             password
         }
         axios
-        .post( "https://ecommerce-app-ypub.onrender.com/api/v1/users/login", data )
+        .post( "https://ecommerce-app-10yz.onrender.com/api/v1/users/login", data )
         .then( resp => {
             localStorage.setItem( "token", resp.data.token )
             localStorage.setItem( "firstName", resp.data.user.firstName )

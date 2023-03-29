@@ -15,7 +15,7 @@ export const productsSlice = createSlice({
 export const getProductsThunk = () => dispatch => {
     dispatch( setIsLoading(true) )
     axios
-    .get( "https://ecommerce-app-ypub.onrender.com/api/v1/products" )
+    .get( "https://ecommerce-app-10yz.onrender.com/api/v1/products" )
     .then( resp => dispatch( setProducts(resp.data) ) )
     .catch( error => console.error(error) )
     .finally( () => dispatch( setIsLoading(false) ) )
@@ -24,7 +24,7 @@ export const getProductsThunk = () => dispatch => {
 export const filterCategoriesThunk = (id) => dispatch => {
     dispatch( setIsLoading(true) )
     axios
-    .get( "https://ecommerce-app-ypub.onrender.com/api/v1/products" )
+    .get( "https://ecommerce-app-10yz.onrender.com/api/v1/products" )
     .then( resp => dispatch( setProducts(resp.data.filter(product => product.categoryId === id)) ) )
     .catch( error => console.error(error) )
     .finally( () => dispatch( setIsLoading(false) ) )

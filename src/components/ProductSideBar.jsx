@@ -20,7 +20,7 @@ const ProductSideBar = ( {item} ) => {
         }
         dispatch( setIsLoading(true) )
         axios
-        .put( `https://ecommerce-app-ypub.onrender.com/api/v1/cart/${item.id}`, updateProduct, getConfig() )
+        .put( `https://ecommerce-app-10yz.onrender.com/api/v1/cart/${item.id}`, updateProduct, getConfig() )
         .then( () => dispatch( getAddToCartThunk() ) )
         .catch( error => console.error(error) )
     }
@@ -28,7 +28,7 @@ const ProductSideBar = ( {item} ) => {
     const deleteProduct = () => {
         dispatch( setIsLoading(true) )
         axios
-        .delete( `https://ecommerce-app-ypub.onrender.com/api/v1/cart/${item.id}`, getConfig() )
+        .delete( `https://ecommerce-app-10yz.onrender.com/api/v1/cart/${item.id}`, getConfig() )
         .then( () => dispatch( getAddToCartThunk() ) )
         .catch( error => console.error(error) )
     }

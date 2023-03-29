@@ -22,7 +22,7 @@ const ProductDetail = () => {
         dispatch( getProductsThunk() )
         dispatch( setIsLoading(true) )
         axios
-        .get( `https://ecommerce-app-ypub.onrender.com/api/v1/products/${id}/` )
+        .get( `https://ecommerce-app-10yz.onrender.com/api/v1/products/${id}/` )
         .then( resp => {
             setDetail(resp.data)
             setProductsRelated( products?.filter(product => product.categoryId === resp.data.categoryId) )
